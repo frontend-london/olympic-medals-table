@@ -1,0 +1,57 @@
+{
+  "name": "react-typescript-starter",
+  "version": "1.0.0",
+  "description": "Empty project using React with TypeScript and Webpack",
+  "main": "index.js",
+  "scripts": {
+    "tsc-init": "tsc --init",
+    "test": "jest",
+    "build": "rimraf dist && webpack --config config/webpack.config.prod.ts",
+    "start": "webpack-dev-server --hot --config config/webpack.config.dev.ts",
+    "re-install": "rimraf node_modules && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontend-london/react-typescript-starter.git"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "webpack",
+    "starter"
+  ],
+  "author": "Piotr Kolodziejczyk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frontend-london/react-typescript-starter/issues"
+  },
+  "homepage": "https://github.com/frontend-london/react-typescript-starter#readme",
+  "dependencies": {
+    "react": "16.8.1",
+    "react-dom": "16.8.1"
+  },
+  "devDependencies": {
+    "@types/html-webpack-plugin": "3.2.0",
+    "@types/jest": "24.0.6",
+    "@types/node": "10.12.24",
+    "@types/react": "16.8.2",
+    "@types/react-dom": "16.8.0",
+    "@types/webpack": "4.4.24",
+    "@types/webpack-bundle-analyzer": "2.13.1",
+    "@types/webpack-dev-server": "3.1.2",
+    "@types/webpack-merge": "4.1.3",
+    "css-loader": "2.1.0",
+    "html-webpack-plugin": "3.2.0",
+    "jest": "24.1.0",
+    "rimraf": "2.6.3",
+    "style-loader": "0.23.1",
+    "ts-loader": "5.3.3",
+    "ts-node": "8.0.2",
+    "typescript": "3.3.3",
+    "webpack": "4.29.3",
+    "webpack-bundle-analyzer": "3.0.4",
+    "webpack-cli": "3.2.3",
+    "webpack-dev-server": "3.1.14",
+    "webpack-merge": "4.2.1"
+  }
+}
