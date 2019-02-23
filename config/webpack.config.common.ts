@@ -1,14 +1,14 @@
-import {Configuration} from 'webpack';
-import {join} from 'path';
+import { Configuration } from 'webpack';
+import { join } from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 const projectDirectory = join(__dirname, '..');
 
 const config: Configuration = {
     entry: {
-        app: join(projectDirectory,'src/app/index.tsx'),
+        app: join(projectDirectory, 'src/app/index.tsx'),
     },
     output: {
-        path: join(projectDirectory,'dist'),
+        path: join(projectDirectory, 'dist'),
         filename: '[name].bundle.js'
     },
     resolve: {
@@ -22,19 +22,19 @@ const config: Configuration = {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/,
-                use:  ['style-loader', 'css-loader'],
+                test: /\.s?css$/,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
                 exclude: /node_modules/
             }
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: join(projectDirectory,'src/app/index.html'),
+            template: join(projectDirectory, 'src/app/index.html'),
             inject: 'body',
             react: `react@${process.env.npm_package_dependencies_react}`,
             reactDOM: `react-dom@${process.env.npm_package_dependencies_react_dom}`
-        } )
+        })
     ]
 }
 
