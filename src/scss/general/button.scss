@@ -1,8 +1,8 @@
 .button {
   border: 1px solid;
-  background-color: #d8b424;
-  border-color: #ffc107;
-  color: white;
+  background-color: $yellow-tangerine;
+  border-color: $yellow-amber;
+  color: $white;
   padding: 15px 22px;
   text-align: center;
   text-decoration: none;
@@ -12,20 +12,19 @@
   cursor: pointer;
 
   &:hover {
-    background-color: #e0a800;
-    border-color: #d39e00;
+    background-color: $orange;
+    border-color: $orange-tangerine;
   }
 
   &--gray {
     @extend .button;
-    background-color: #e7e7e7;
-    color: #212529;
-    border-color: #f8f9fa;
+    background-color: $white-gainsboro;
+    color: $grey-cinder;
+    border-color: $blue-solitude;
 
     &:hover {
-      color: #212529;
-      background-color: #e2e6ea;
-      border-color: #dae0e5;
+      background-color: $blue-solitude2;
+      border-color: $blue-solitude3;
     }
   }
 }

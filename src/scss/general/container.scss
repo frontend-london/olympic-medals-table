@@ -4,19 +4,19 @@
   margin-right: auto;
   margin-left: auto;
 
-  @media (max-width: 767.98px) {
+  @media (max-width: $size-sm-below) {
     width: auto;
   }
 
-  @media (min-width: 768px) and (max-width: 991.98px) {
+  @media (min-width: $size-sm) and (max-width: $size-md-below) {
     width: 750px;
   }
 
-  @media (min-width: 992px) and (max-width: 1199.98px) {
+  @media (min-width: $size-md) and (max-width: $size-lg-below) {
     width: 970px;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: $size-lg) {
     width: 1170px;
   }
 }
