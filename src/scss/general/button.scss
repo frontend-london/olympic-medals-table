@@ -16,6 +16,10 @@
     border-color: $orange-tangerine;
   }
 
+  &:focus {
+    outline: none;
+  }
+
   &--gray {
     @extend .button;
     background-color: $white-gainsboro;

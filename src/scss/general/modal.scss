@@ -10,6 +10,10 @@
   background-color: $grey-nobel;
   background-color: $black-opacity-40;
 
+  &.open {
+    display: block;
+  }
+
   &__content {
     background-color: $white2;
     margin: 15% auto;

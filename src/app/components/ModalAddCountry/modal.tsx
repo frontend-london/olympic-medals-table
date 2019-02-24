@@ -1,13 +1,18 @@
 import React from 'react';
 
-export interface ModalAddCountryProps { }
+export interface ModalAddCountryProps {
+  open: boolean,
+  handleModalClose(e: React.MouseEvent<HTMLElement>): void,
+  handleAddCountry(e: React.MouseEvent<HTMLElement>): void
+}
 
 function ModalAddCountry(props: ModalAddCountryProps) {
+  const { open, handleModalClose, handleAddCountry } = props;
   return (
-    <div className="modal modal-add-country">
+    <div className={"modal modal-add-country" + (open ? ' open' : '')}>
       <div className="modal__content">
         <div className="modal__header">
-          <span className="modal__close">&times;</span>
+          <span className="modal__close" onClick={handleModalClose}>&times;</span>
           <h2>Add a Country Medals:</h2>
         </div>
         <div className="modal__body">
@@ -45,8 +50,8 @@ function ModalAddCountry(props: ModalAddCountryProps) {
           </div>
         </div>
         <div className="modal__footer">
-          <button type="button" className="button--gray">Close</button>
-          <button type="button" className="button">Save changes</button>
+          <button type="button" className="button--gray" onClick={handleModalClose}>Close</button>
+          <button type="button" className="button" onClick={handleAddCountry}>Save changes</button>
         </div>
       </div>
     </div>
