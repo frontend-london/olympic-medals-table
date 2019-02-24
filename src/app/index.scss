@@ -46,6 +46,47 @@ h1 {
   margin-top: 10px;
 }
 
+input[type=text], input[type=number], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+/*
+* Basic grid system:
+*/
+
+.col {
+  float: left;
+  margin-top: 6px;
+
+  &--25 {
+    @extend .col;
+    width: 25%;
+  }
+
+  &--75 {
+    @extend .col;
+    width: 75%;
+  }
+}
+
+.row {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
 /*
 * Own styles:
 */
@@ -96,10 +137,10 @@ h1 {
   }
 }
 
-
 .table-medals {
   width: 100%;
-  margin-top: 20px;
+  padding-top: 20px;
+  clear: both;
 
   &__no { width: 30px; text-align: left; }
   &__country { width: auto; text-align: left; }
@@ -113,6 +154,7 @@ h1 {
   }
 
   tbody tr td {
+    line-height: 30px;
     border-bottom: 1px solid #ededed;
 
     &:hover {
@@ -121,6 +163,113 @@ h1 {
 
     &:nth-child(n+3) { text-align: center; }
   }
-
-
 }
+
+.button {
+  border: 1px solid;
+  background-color: #d8b424;
+  border-color: #ffc107;
+  color: white;
+  padding: 15px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+  }
+
+  &--gray {
+    @extend .button;
+    background-color: #e7e7e7;
+    color: #212529;
+    border-color: #f8f9fa;
+
+    &:hover {
+      color: #212529;
+      background-color: #e2e6ea;
+      border-color: #dae0e5;
+    }
+  }
+}
+
+.button-add-country {
+  float: right;
+  padding: 11px 15px;
+  margin-top: 5px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #9a9a9a;
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+  &__content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 10px 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 80%;
+
+    @media (max-width: 767.98px) {
+      width: 90%;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__body {
+    clear: both;
+  }
+
+  &__footer {
+    text-align: right;
+
+    button {
+      margin: 10px 0 10px 10px;
+    }
+  }
+
+  &__close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+
+    &:hover, &:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+}
+
+.modal-medals {
+  &__label-mobile {
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  &__col-label {
+    min-width: 60px;
+  }
+}
+
+
+
