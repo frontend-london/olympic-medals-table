@@ -58,7 +58,7 @@ export class App extends React.Component<AppProps, AppState> {
                     </tbody>
                 </table>
 
-                <div className="modal modal-medals">
+                <div className="modal modal-add-country">
                     <div className="modal__content">
                         <div className="modal__header">
                             <span className="modal__close">&times;</span>
@@ -66,7 +66,7 @@ export class App extends React.Component<AppProps, AppState> {
                         </div>
                         <div className="modal__body">
                             <div className="row">
-                                <div className="col--25 modal-medals__col-label">
+                                <div className="col--25 modal-add-country__col-label">
                                     <label htmlFor="input-country">Country:</label>
                                 </div>
                                 <div className="col--75">
@@ -74,24 +74,24 @@ export class App extends React.Component<AppProps, AppState> {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col--25 modal-medals__col-label">
-                                    <label htmlFor="input-gold-medals">Gold<span className="modal-medals__label-mobile"> Medals</span>:</label>
+                                <div className="col--25 modal-add-country__col-label">
+                                    <label htmlFor="input-gold-medals">Gold<span className="modal-add-country__label-mobile"> Medals</span>:</label>
                                 </div>
                                 <div className="col--75">
                                     <input type="number" className="form-control" id="input-gold-medals" />
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col--25 modal-medals__col-label">
-                                    <label htmlFor="input-silver-medals">Silver<span className="modal-medals__label-mobile"> Medals</span>:</label>
+                                <div className="col--25 modal-add-country__col-label">
+                                    <label htmlFor="input-silver-medals">Silver<span className="modal-add-country__label-mobile"> Medals</span>:</label>
                                 </div>
                                 <div className="col--75">
                                     <input type="number" className="form-control" id="input-silver-medals" />
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col--25 modal-medals__col-label">
-                                    <label htmlFor="input-bronze-medals">Bronze<span className="modal-medals__label-mobile"> Medals</span>:</label>
+                                <div className="col--25 modal-add-country__col-label">
+                                    <label htmlFor="input-bronze-medals">Bronze<span className="modal-add-country__label-mobile"> Medals</span>:</label>
                                 </div>
                                 <div className="col--75">
                                     <input type="number" className="form-control" id="input-bronze-medals" />
