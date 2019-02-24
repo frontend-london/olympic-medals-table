@@ -1,4 +1,5 @@
 .button-add-country {
+  @extend .button;
   float: right;
   padding: 11px 15px;
   margin-top: 5px;
