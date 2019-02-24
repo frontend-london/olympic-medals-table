@@ -1,11 +1,126 @@
+/*
+* Minimal CSS Reset
+* source: https://alligator.io/css/minimal-css-reset/
+*/
+
 html {
-    box-sizing: border-box;
-    font-size: 16px;
-    font-family: sans-serif;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*
+* General styles:
+*/
+
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.text-center {
+  text-align: center;
+}
+
+h1 {
+  margin-top: 10px;
+}
+
+/*
+* Own styles:
+*/
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (max-width: 767.98px) {
+    width: auto;
   }
-  
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
+
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    width: 750px;
   }
+
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    width: 970px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
+}
+
+.medal {
+  width: 25px;
+  height: 32px;
+  background-image: url('../../public/images/medals.png');
+  background-repeat: no-repeat;
+  margin: 0 auto;
+
+  &--gold {
+    @extend .medal;
+    background-position: -10px -10px;
+  }
+
+  &--silver {
+    @extend .medal;
+    background-position: -55px -10px;
+  }
+
+  &--bronze {
+    @extend .medal;
+    background-position: -100px -10px;
+  }
+}
+
+
+.table-medals {
+  width: 100%;
+  margin-top: 20px;
+
+  &__no { width: 30px; text-align: left; }
+  &__country { width: auto; text-align: left; }
+  &__gold, &__silver, &__bronze { width: 40px; }
+  &__total { width: 60px; }
+
+  thead tr th {
+    border: solid #d9d9d9;
+    border-width: 1px 0;
+    line-height: 46px;
+  }
+
+  tbody tr td {
+    border-bottom: 1px solid #ededed;
+
+    &:hover {
+      background: #f7f7f5;
+    }
+
+    &:nth-child(n+3) { text-align: center; }
+  }
+
+
+}
