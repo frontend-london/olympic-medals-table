@@ -1,0 +1,28 @@
+
+.table-medals {
+  width: 100%;
+  padding-top: 20px;
+  clear: both;
+
+  &__no { width: 30px; text-align: left; }
+  &__country { width: auto; text-align: left; }
+  &__gold, &__silver, &__bronze { width: 40px; }
+  &__total { width: 60px; }
+
+  thead tr th {
+    border: solid #d9d9d9;
+    border-width: 1px 0;
+    line-height: 46px;
+  }
+
+  tbody tr td {
+    line-height: 30px;
+    border-bottom: 1px solid #ededed;
+
+    &:hover {
+      background: #f7f7f5;
+    }
+
+    &:nth-child(n+3) { text-align: center; }
+  }
+}

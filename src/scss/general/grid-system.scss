@@ -1,0 +1,26 @@
+/*
+* Basic grid system:
+*/
+
+.col {
+  float: left;
+  margin-top: 6px;
+
+  &--25 {
+    @extend .col;
+    width: 25%;
+  }
+
+  &--75 {
+    @extend .col;
+    width: 75%;
+  }
+}
+
+.row {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

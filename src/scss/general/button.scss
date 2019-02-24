@@ -1,0 +1,31 @@
+.button {
+  border: 1px solid;
+  background-color: #d8b424;
+  border-color: #ffc107;
+  color: white;
+  padding: 15px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+  }
+
+  &--gray {
+    @extend .button;
+    background-color: #e7e7e7;
+    color: #212529;
+    border-color: #f8f9fa;
+
+    &:hover {
+      color: #212529;
+      background-color: #e2e6ea;
+      border-color: #dae0e5;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+.icon-medal {
+  width: 25px;
+  height: 32px;
+  background-image: url('../../../public/images/icon-medals.png');
+  background-repeat: no-repeat;
+  margin: 0 auto;
+
+  &--gold {
+    @extend .icon-medal;
+    background-position: -10px -10px;
+  }
+
+  &--silver {
+    @extend .icon-medal;
+    background-position: -55px -10px;
+  }
+
+  &--bronze {
+    @extend .icon-medal;
+    background-position: -100px -10px;
+  }
+}
