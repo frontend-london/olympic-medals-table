@@ -24,8 +24,7 @@ export class App extends React.Component<AppProps, AppState> {
         this.setState({ modalOpen: true });
     }
 
-    handleModalClose = (e: React.MouseEvent<HTMLElement>): void => {
-        e.preventDefault();
+    handleModalClose = (): void => {
         this.setState({ modalOpen: false });
     }
 
