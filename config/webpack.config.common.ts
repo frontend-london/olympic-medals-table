@@ -1,6 +1,7 @@
 import { Configuration } from 'webpack';
 import { join } from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+const CopyPlugin = require('copy-webpack-plugin');
 const projectDirectory = join(__dirname, '..');
 
 const config: Configuration = {
@@ -34,7 +35,7 @@ const config: Configuration = {
                         options: {},
                     },
                 ],
-            },
+            }
         ]
     },
     plugins: [
@@ -43,7 +44,10 @@ const config: Configuration = {
             inject: 'body',
             react: `react@${process.env.npm_package_dependencies_react}`,
             reactDOM: `react-dom@${process.env.npm_package_dependencies_react_dom}`
-        })
+        }),
+        new CopyPlugin([
+            { from: 'src/data', to: 'data' },
+        ]),
     ]
 }
 

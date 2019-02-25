@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as api from './api/index';
 import TableMedals from './components/TableMedals/table';
 import { CountryInterface } from './interfaces/country';
 import { CountriesInterface } from './interfaces/countries';
@@ -6,10 +7,11 @@ import { ModalAddCountry } from './components/ModalAddCountry/modal';
 
 export interface AppProps { }
 
-export interface AppState extends CountriesInterface { modalOpen: boolean }
+export interface AppState extends CountriesInterface { modalOpen: boolean, availableCountries: Array<string> }
 
 const initialState = {
     modalOpen: false,
+    availableCountries: [],
     countries: []
 };
 
@@ -17,6 +19,21 @@ export class App extends React.Component<AppProps, AppState> {
     constructor(props: AppProps) {
         super(props);
         this.state = initialState;
+    }
+
+    handleFetchCountriesError = (err: string) => {
+        console.error('FetchCountriesError', err);
+        //@todo: add proper error handling here
+    }
+
+    async fetchCountries() {
+        const availableCountries = await api.get('data/countries.json', this.handleFetchCountriesError);
+        debugger;
+        this.setState({ availableCountries });
+    }
+
+    componentDidMount() {
+        this.fetchCountries();
     }
 
     handleModalOpen = (e: React.MouseEvent<HTMLElement>): void => {
