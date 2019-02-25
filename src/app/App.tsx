@@ -4,16 +4,30 @@ import TableMedals from './components/TableMedals/table';
 import { CountryInterface } from './interfaces/country';
 import { CountriesInterface } from './interfaces/countries';
 import { AvailableCountriesInterface } from './interfaces/availableCountries';
-import { ModalAddCountry } from './components/ModalAddCountry/modal';
+import { ModalAddEditCountry } from './components/ModalAddEditCountry/modal';
 
 interface AppProps { }
-interface AppState extends CountriesInterface, AvailableCountriesInterface { modalOpen: boolean }
+interface AppState extends CountriesInterface, AvailableCountriesInterface {
+    modalOpen: boolean,
+    editedCountry: CountryInterface | null
+}
 
 const initialState = {
     modalOpen: false,
     availableCountries: [],
-    countries: []
+    countries: [],
+    editedCountry: null
 };
+
+function countriesSort(a: CountryInterface, b: CountryInterface): number {
+    if (b.goldMedals !== a.goldMedals) {
+        return b.goldMedals - a.goldMedals;
+    } else if (b.silverMedals !== a.silverMedals) {
+        return b.silverMedals - a.silverMedals;
+    } else {
+        return b.bronzeMedals - a.bronzeMedals;
+    }
+}
 
 export class App extends React.Component<AppProps, AppState> {
     constructor(props: AppProps) {
@@ -41,24 +55,19 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     handleModalClose = (): void => {
-        this.setState({ modalOpen: false });
+        this.setState({
+            modalOpen: false,
+            editedCountry: null
+        });
     }
 
-    handleAddCountry = (country: CountryInterface): void => {
+    handleSaveNewCountry = (country: CountryInterface): void => {
         let availableCountries = this.state.availableCountries;
         let countries = [...this.state.countries, country];
         availableCountries = availableCountries.filter((availableCountry, index, arr) => {
             return availableCountry.name !== country.name;
         });
-        countries.sort((a, b) => {
-            if (b.goldMedals !== a.goldMedals) {
-                return b.goldMedals - a.goldMedals;
-            } else if (b.silverMedals !== a.silverMedals) {
-                return b.silverMedals - a.silverMedals;
-            } else {
-                return b.bronzeMedals - a.bronzeMedals;
-            }
-        });
+        countries.sort(countriesSort);
         this.setState({
             availableCountries,
             modalOpen: false,
@@ -66,18 +75,43 @@ export class App extends React.Component<AppProps, AppState> {
         });
     }
 
+    handleSaveEditedCountry = (editedCountry: CountryInterface): void => {
+        let editedIndex = this.state.countries.findIndex((country, index) => {
+            return country.code == editedCountry.code;
+        });
+        let countries = [...this.state.countries];
+        countries[editedIndex] = editedCountry;
+        countries.sort(countriesSort);
+        this.setState({
+            modalOpen: false,
+            countries: countries
+        });
+    }
+
+    handleEditCountry = (editedCountry: CountryInterface): void => {
+        this.setState({
+            editedCountry,
+            modalOpen: true,
+        });
+    }
+
     public render() {
-        const { modalOpen, countries, availableCountries } = this.state;
+        const { modalOpen, countries, availableCountries, editedCountry } = this.state;
         return (
             <div className="container">
                 <h1 className="text-center">Olympic Medals Table</h1>
                 <button className="button-add-country" onClick={this.handleModalOpen}>Add a country +</button>
-                <TableMedals countries={countries} />
-                <ModalAddCountry
+                <TableMedals
+                    countries={countries}
+                    handleEditCountry={this.handleEditCountry}
+                />
+                <ModalAddEditCountry
                     availableCountries={availableCountries}
                     open={modalOpen}
                     handleModalClose={this.handleModalClose}
-                    handleAddCountry={this.handleAddCountry}
+                    handleSaveNewCountry={this.handleSaveNewCountry}
+                    handleSaveEditedCountry={this.handleSaveEditedCountry}
+                    editedCountry={editedCountry}
                 />
             </div>
         )

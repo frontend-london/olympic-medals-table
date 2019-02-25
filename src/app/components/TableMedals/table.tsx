@@ -1,10 +1,15 @@
 import React from 'react';
 import TableMedalsRow from './row';
+import { CountryInterface } from './../../interfaces/country';
 import { CountriesInterface } from './../../interfaces/countries';
 import './../../../scss/components/table-medals.scss';
 
-function TableMedals(props: CountriesInterface) {
-  const { countries } = props;
+interface TableMedalsProps extends CountriesInterface {
+  handleEditCountry(editedCountry: CountryInterface): void
+}
+
+function TableMedals(props: TableMedalsProps) {
+  const { countries, handleEditCountry } = props;
   return (
     <table className="table-medals">
       <thead>
@@ -23,6 +28,7 @@ function TableMedals(props: CountriesInterface) {
             country={country}
             id={i + 1}
             key={country.name}
+            handleEditCountry={handleEditCountry}
           />
         )}
       </tbody>

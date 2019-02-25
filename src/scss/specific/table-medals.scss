@@ -16,14 +16,18 @@
     line-height: 46px;
   }
 
-  tbody tr td {
-    line-height: 30px;
-    border-bottom: 1px solid $white-smoke;
+  tbody tr {
+    cursor: pointer;
 
-    &:hover {
-      background: $grey-squeeze;
+    td {
+      line-height: 30px;
+      border-bottom: 1px solid $white-smoke;
+
+      &:hover {
+        background: $grey-squeeze;
+      }
+
+      &:nth-child(n+3) { text-align: center; }
     }
-
-    &:nth-child(n+3) { text-align: center; }
   }
 }

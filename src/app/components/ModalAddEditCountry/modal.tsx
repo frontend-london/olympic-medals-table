@@ -3,32 +3,47 @@ import { CountryInterface } from './../../interfaces/country';
 import { AvailableCountriesInterface } from './../../interfaces/availableCountries';
 import './../../../scss/components/modal-add-country.scss';
 
-interface ModalAddCountryState {
+interface ModalAddEditCountryState {
   name: string,
   nameError: boolean,
+  editingInitiated: boolean,
   goldMedals: number,
   silverMedals: number,
   bronzeMedals: number
 }
 
-interface ModalAddCountryProps extends AvailableCountriesInterface {
+interface ModalAddEditCountryProps extends AvailableCountriesInterface {
   open: boolean,
+  editedCountry: CountryInterface | null,
   handleModalClose(): void,
-  handleAddCountry(e: CountryInterface): void
+  handleSaveNewCountry(e: CountryInterface): void,
+  handleSaveEditedCountry(e: CountryInterface): void
 }
 
 const initialState = {
   name: '',
   nameError: false,
+  editingInitiated: false,
   goldMedals: 0,
   silverMedals: 0,
   bronzeMedals: 0
 };
 
-export class ModalAddCountry extends React.Component<ModalAddCountryProps, ModalAddCountryState> {
-  constructor(props: ModalAddCountryProps) {
+export class ModalAddEditCountry extends React.Component<ModalAddEditCountryProps, ModalAddEditCountryState> {
+  constructor(props: ModalAddEditCountryProps) {
     super(props);
     this.state = initialState;
+  }
+
+  static getDerivedStateFromProps(props: ModalAddEditCountryProps, state: ModalAddEditCountryState) {
+    if (props.open && props.editedCountry && !state.editingInitiated) { // init state from props when editing only if not initiated yet
+      return {
+        ...state,
+        ...props.editedCountry,
+        editingInitiated: true
+      }
+    }
+    return state;
   }
 
   componentDidMount() {
@@ -74,8 +89,16 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
 
   handleSaveChanges = (e: React.SyntheticEvent<HTMLElement>): void => {
     e.preventDefault();
-    if (this.state.name !== '') {
-      this.props.handleAddCountry({
+    if (this.props.editedCountry) {
+      this.props.handleSaveEditedCountry({
+        ...this.props.editedCountry,
+        goldMedals: this.state.goldMedals,
+        silverMedals: this.state.silverMedals,
+        bronzeMedals: this.state.bronzeMedals
+      });
+      this.reset();
+    } else if (this.state.name !== '') {
+      this.props.handleSaveNewCountry({
         name: this.state.name.substr(2), // option value is combination of code (first 2 characters) and name. I could use Array.find() instead but it would be slower
         code: this.state.name.substr(0, 2),
         goldMedals: this.state.goldMedals,
@@ -94,7 +117,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
   }
 
   public render() {
-    const { open, handleAddCountry, availableCountries } = this.props;
+    const { open, availableCountries, editedCountry } = this.props;
     const { name, nameError, goldMedals, silverMedals, bronzeMedals } = this.state;
 
     return (
@@ -103,23 +126,25 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
           <form onSubmit={this.handleSaveChanges}>
             <div className="modal__header">
               <span className="modal__close" onClick={this.handleModalClose}>&times;</span>
-              <h2>Add a Country Medals:</h2>
+              <h2>{editedCountry ? ('Edit ' + name) : ' Add Country '} Medals:</h2>
             </div>
             <div className="modal__body">
-              <div className="row">
-                <div className="modal-add-country__col-label">
-                  <label htmlFor="select-name">Country:</label>
+              {!editedCountry && (
+                <div className="row">
+                  <div className="modal-add-country__col-label">
+                    <label htmlFor="select-name">Country:</label>
+                  </div>
+                  <div className="col--75">
+                    <select id="select-name" value={name} onChange={this.handleNameChanged}>
+                      <option value="" disabled>Select country</option>
+                      {availableCountries.map((availableCountry, i) =>
+                        <option value={availableCountry.code + availableCountry.name} key={availableCountry.code}>{availableCountry.name}</option>
+                      )}
+                    </select>
+                    <div className={"error" + (nameError ? '' : ' hidden')}>Name can't be empty</div>
+                  </div>
                 </div>
-                <div className="col--75">
-                  <select id="select-name" value={name} onChange={this.handleNameChanged}>
-                    <option value="" disabled>Select country</option>
-                    {availableCountries.map((availableCountry, i) =>
-                      <option value={availableCountry.code + availableCountry.name} key={availableCountry.code}>{availableCountry.name}</option>
-                    )}
-                  </select>
-                  <div className={"error" + (nameError ? '' : ' hidden')}>Name can't be empty</div>
-                </div>
-              </div>
+              )}
               <div className="row">
                 <div className="modal-add-country__col-label">
                   <label htmlFor="input-gold-medals">Gold<span className="modal-add-country__label-mobile"> Medals</span>:</label>
@@ -156,4 +181,4 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
   }
 }
 
-export default ModalAddCountry;
+export default ModalAddEditCountry;
