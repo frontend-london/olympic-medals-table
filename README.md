@@ -32,9 +32,12 @@ I tried to use all the best techniques of writing code in this project. Although
    * specific folder contains components that are not going to be used multiple times in the project such as .button-add-country
    * components folder represents structure of React Components but no styling inside - instead of it it's importing them from general/ and specific/ folders
 10. After completing styling part I've started working on a React components. First of all I've added functionality to open and close modal window which allows adding new country to the table.
+11. I've added ESC and ENTER handlers to the modal
+12. Table is showing countries
+13. Added sorting to table: by Gold first, Silver next and Bronze thereafter;
 
 ### Roadmap
-1. First of all I'm going to write React components meeting the requirements.
+1. All React components meeting the requirements.
 2. I'll add Redux to use instead of React State.
 3. Write tests using Enzyme (and jest)
 
@@ -48,3 +51,6 @@ Table functionality to be added:
   * Sorting
   * Country flags
   * Ability to edit/remove country
+
+### Problems
+1. Missing componentWillUnmount() with document.removeEventListener("keyup", this.escFunction, false) in src\app\components\ModalAddCountry\modal.tsx . The reason of it is that typescript type check was returning error to both KeyboardEvent and EventListenerOrEventListenerObject . This can help to fix this error: https://stackoverflow.com/questions/47166369/argument-of-type-e-customevent-void-is-not-assignable-to-parameter-of-ty?rq=1

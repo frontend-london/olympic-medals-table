@@ -29,9 +29,19 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     handleAddCountry = (country: CountryInterface): void => {
+        let countries = [...this.state.countries, country];
+        countries.sort((a, b) => {
+            if (b.goldMedals !== a.goldMedals) {
+                return b.goldMedals - a.goldMedals;
+            } else if (b.silverMedals !== a.silverMedals) {
+                return b.silverMedals - a.silverMedals;
+            } else {
+                return b.bronzeMedals - a.bronzeMedals;
+            }
+        });
         this.setState({
             modalOpen: false,
-            countries: [...this.state.countries, country]
+            countries: countries
         }, () => console.log('state', this.state));
     }
 
