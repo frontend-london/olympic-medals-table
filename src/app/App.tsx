@@ -5,9 +5,9 @@ import { CountryInterface } from './interfaces/country';
 import { CountriesInterface } from './interfaces/countries';
 import { ModalAddCountry } from './components/ModalAddCountry/modal';
 
-export interface AppProps { }
+interface AppProps { }
 
-export interface AppState extends CountriesInterface { modalOpen: boolean, availableCountries: Array<string> }
+interface AppState extends CountriesInterface { modalOpen: boolean, availableCountries: Array<string> }
 
 const initialState = {
     modalOpen: false,
@@ -21,6 +21,10 @@ export class App extends React.Component<AppProps, AppState> {
         this.state = initialState;
     }
 
+    componentDidMount() {
+        this.fetchCountries();
+    }
+
     handleFetchCountriesError = (err: string) => {
         console.error('FetchCountriesError', err);
         //@todo: add proper error handling here
@@ -28,12 +32,7 @@ export class App extends React.Component<AppProps, AppState> {
 
     async fetchCountries() {
         const availableCountries = await api.get('data/countries.json', this.handleFetchCountriesError);
-        debugger;
         this.setState({ availableCountries });
-    }
-
-    componentDidMount() {
-        this.fetchCountries();
     }
 
     handleModalOpen = (e: React.MouseEvent<HTMLElement>): void => {
@@ -63,13 +62,14 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     public render() {
-        const { modalOpen, countries } = this.state;
+        const { modalOpen, countries, availableCountries } = this.state;
         return (
             <div className="container">
                 <h1 className="text-center">Olympic Medals Table</h1>
                 <button className="button-add-country" onClick={this.handleModalOpen}>Add a country +</button>
                 <TableMedals countries={countries} />
                 <ModalAddCountry
+                    availableCountries={availableCountries}
                     open={modalOpen}
                     handleModalClose={this.handleModalClose}
                     handleAddCountry={this.handleAddCountry}

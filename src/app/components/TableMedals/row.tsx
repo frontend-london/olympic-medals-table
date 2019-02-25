@@ -1,8 +1,7 @@
 import React from 'react';
-
 import { CountryInterface } from './../../interfaces/country';
 
-export interface TableMedalsRowProps {
+interface TableMedalsRowProps {
   id: number,
   country: CountryInterface
 }

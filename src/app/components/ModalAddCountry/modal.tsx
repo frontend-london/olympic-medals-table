@@ -1,13 +1,12 @@
 import React from 'react';
-
 import { CountryInterface } from './../../interfaces/country';
 
-export interface ModalAddCountryState extends CountryInterface { nameError: boolean }
-
-export interface ModalAddCountryProps {
+interface ModalAddCountryState extends CountryInterface { nameError: boolean }
+interface ModalAddCountryProps {
   open: boolean,
   handleModalClose(): void,
-  handleAddCountry(e: CountryInterface): void
+  handleAddCountry(e: CountryInterface): void,
+  availableCountries: Array<string>
 }
 
 const initialState = {
@@ -41,7 +40,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
     this.setState(initialState);
   }
 
-  handleNameChanged = (e: React.FormEvent<HTMLInputElement>): void => {
+  handleNameChanged = (e: React.FormEvent<HTMLSelectElement>): void => {
     e.preventDefault();
     const name = e.currentTarget.value;
     this.setState({
@@ -81,7 +80,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
   }
 
   public render() {
-    const { open, handleAddCountry } = this.props;
+    const { open, handleAddCountry, availableCountries } = this.props;
     const { name, nameError, goldMedals, silverMedals, bronzeMedals } = this.state;
 
     return (
@@ -95,10 +94,15 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
             <div className="modal__body">
               <div className="row">
                 <div className="modal-add-country__col-label">
-                  <label htmlFor="input-name">Country:</label>
+                  <label htmlFor="select-name">Country:</label>
                 </div>
                 <div className="col--75">
-                  <input type="text" className="form-control" id="input-name" value={name} onChange={this.handleNameChanged} />
+                  <select id="select-name" value={name} onChange={this.handleNameChanged}>
+                    <option value="" disabled>Select country</option>
+                    {availableCountries.map((country, i) =>
+                      <option value={country} key={country}>{country}</option>
+                    )}
+                  </select>
                   <div className={"error" + (nameError ? '' : ' hidden')}>Name can't be empty</div>
                 </div>
               </div>
@@ -107,7 +111,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
                   <label htmlFor="input-gold-medals">Gold<span className="modal-add-country__label-mobile"> Medals</span>:</label>
                 </div>
                 <div className="col--75">
-                  <input type="number" min="0" className="form-control" id="input-gold-medals" value={goldMedals} onChange={this.handleGoldMedalChanged} />
+                  <input type="number" min="0" id="input-gold-medals" value={goldMedals} onChange={this.handleGoldMedalChanged} />
                 </div>
               </div>
               <div className="row">
@@ -115,7 +119,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
                   <label htmlFor="input-silver-medals">Silver<span className="modal-add-country__label-mobile"> Medals</span>:</label>
                 </div>
                 <div className="col--75">
-                  <input type="number" min="0" className="form-control" id="input-silver-medals" value={silverMedals} onChange={this.handleSilverMedalChanged} />
+                  <input type="number" min="0" id="input-silver-medals" value={silverMedals} onChange={this.handleSilverMedalChanged} />
                 </div>
               </div>
               <div className="row">
@@ -123,7 +127,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
                   <label htmlFor="input-bronze-medals">Bronze<span className="modal-add-country__label-mobile"> Medals</span>:</label>
                 </div>
                 <div className="col--75">
-                  <input type="number" min="0" className="form-control" id="input-bronze-medals" value={bronzeMedals} onChange={this.handleBronzeMedalChanged} />
+                  <input type="number" min="0" id="input-bronze-medals" value={bronzeMedals} onChange={this.handleBronzeMedalChanged} />
                 </div>
               </div>
             </div>
