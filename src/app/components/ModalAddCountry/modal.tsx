@@ -2,6 +2,7 @@ import React from 'react';
 
 import { CountryInterface } from './../../interfaces/country';
 
+export interface ModalAddCountryState extends CountryInterface { nameError: boolean }
 
 export interface ModalAddCountryProps {
   open: boolean,
@@ -11,12 +12,13 @@ export interface ModalAddCountryProps {
 
 const initialState = {
   name: '',
+  nameError: false,
   goldMedals: 0,
   silverMedals: 0,
   bronzeMedals: 0
 };
 
-export class ModalAddCountry extends React.Component<ModalAddCountryProps, CountryInterface> {
+export class ModalAddCountry extends React.Component<ModalAddCountryProps, ModalAddCountryState> {
   constructor(props: ModalAddCountryProps) {
     super(props);
     this.state = initialState;
@@ -29,7 +31,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
   }
 
   // @todo: make it work with typescipt
-  // this can  help:
+  // this can help:
   // https://stackoverflow.com/questions/47166369/argument-of-type-e-customevent-void-is-not-assignable-to-parameter-of-ty?rq=1
   // componentWillUnmount() {
   //   document.removeEventListener("keyup", this.escFunction, false);
@@ -41,7 +43,11 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
 
   handleNameChanged = (e: React.FormEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    this.setState({ name: e.currentTarget.value });
+    const name = e.currentTarget.value;
+    this.setState({
+      name,
+      nameError: name === ''
+    });
   }
 
   handleGoldMedalChanged = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -61,8 +67,12 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
 
   handleSaveChanges = (e: React.SyntheticEvent<HTMLElement>): void => {
     e.preventDefault();
-    this.props.handleAddCountry(this.state);
-    this.reset();
+    if (this.state.name !== '') {
+      this.props.handleAddCountry(this.state);
+      this.reset();
+    } else {
+      this.setState({ nameError: true });
+    }
   }
 
   handleModalClose = (): void => {
@@ -72,7 +82,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
 
   public render() {
     const { open, handleAddCountry } = this.props;
-    const { name, goldMedals, silverMedals, bronzeMedals } = this.state;
+    const { name, nameError, goldMedals, silverMedals, bronzeMedals } = this.state;
 
     return (
       <div className={"modal modal-add-country" + (open ? ' open' : '')}>
@@ -89,6 +99,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
                 </div>
                 <div className="col--75">
                   <input type="text" className="form-control" id="input-name" value={name} onChange={this.handleNameChanged} />
+                  <div className={"error" + (nameError ? '' : ' hidden')}>Name can't be empty</div>
                 </div>
               </div>
               <div className="row">
@@ -96,7 +107,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
                   <label htmlFor="input-gold-medals">Gold<span className="modal-add-country__label-mobile"> Medals</span>:</label>
                 </div>
                 <div className="col--75">
-                  <input type="number" className="form-control" id="input-gold-medals" value={goldMedals} onChange={this.handleGoldMedalChanged} />
+                  <input type="number" min="0" className="form-control" id="input-gold-medals" value={goldMedals} onChange={this.handleGoldMedalChanged} />
                 </div>
               </div>
               <div className="row">
@@ -104,7 +115,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
                   <label htmlFor="input-silver-medals">Silver<span className="modal-add-country__label-mobile"> Medals</span>:</label>
                 </div>
                 <div className="col--75">
-                  <input type="number" className="form-control" id="input-silver-medals" value={silverMedals} onChange={this.handleSilverMedalChanged} />
+                  <input type="number" min="0" className="form-control" id="input-silver-medals" value={silverMedals} onChange={this.handleSilverMedalChanged} />
                 </div>
               </div>
               <div className="row">
@@ -112,7 +123,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
                   <label htmlFor="input-bronze-medals">Bronze<span className="modal-add-country__label-mobile"> Medals</span>:</label>
                 </div>
                 <div className="col--75">
-                  <input type="number" className="form-control" id="input-bronze-medals" value={bronzeMedals} onChange={this.handleBronzeMedalChanged} />
+                  <input type="number" min="0" className="form-control" id="input-bronze-medals" value={bronzeMedals} onChange={this.handleBronzeMedalChanged} />
                 </div>
               </div>
             </div>
