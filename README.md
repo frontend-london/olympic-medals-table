@@ -36,6 +36,7 @@ I tried to use all the best techniques of writing code in this project. Although
 12. Table is showing countries
 13. Added sorting to table: by Gold first, Silver next and Bronze thereafter;
 14. Added list of countries to modal window
+15. Added flags of countries to table
 
 ### Roadmap
 1. All React components meeting the requirements.

@@ -3,11 +3,11 @@ import * as api from './api/index';
 import TableMedals from './components/TableMedals/table';
 import { CountryInterface } from './interfaces/country';
 import { CountriesInterface } from './interfaces/countries';
+import { AvailableCountriesInterface } from './interfaces/availableCountries';
 import { ModalAddCountry } from './components/ModalAddCountry/modal';
 
 interface AppProps { }
-
-interface AppState extends CountriesInterface { modalOpen: boolean, availableCountries: Array<string> }
+interface AppState extends CountriesInterface, AvailableCountriesInterface { modalOpen: boolean }
 
 const initialState = {
     modalOpen: false,
@@ -47,11 +47,9 @@ export class App extends React.Component<AppProps, AppState> {
     handleAddCountry = (country: CountryInterface): void => {
         let availableCountries = this.state.availableCountries;
         let countries = [...this.state.countries, country];
-
-        availableCountries = availableCountries.filter((value, index, arr) => {
-            return value !== country.name;
+        availableCountries = availableCountries.filter((availableCountry, index, arr) => {
+            return availableCountry.name !== country.name;
         });
-
         countries.sort((a, b) => {
             if (b.goldMedals !== a.goldMedals) {
                 return b.goldMedals - a.goldMedals;

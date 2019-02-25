@@ -1,12 +1,19 @@
 import React from 'react';
 import { CountryInterface } from './../../interfaces/country';
+import { AvailableCountriesInterface } from './../../interfaces/availableCountries';
 
-interface ModalAddCountryState extends CountryInterface { nameError: boolean }
-interface ModalAddCountryProps {
+interface ModalAddCountryState {
+  name: string,
+  nameError: boolean,
+  goldMedals: number,
+  silverMedals: number,
+  bronzeMedals: number
+}
+
+interface ModalAddCountryProps extends AvailableCountriesInterface {
   open: boolean,
   handleModalClose(): void,
-  handleAddCountry(e: CountryInterface): void,
-  availableCountries: Array<string>
+  handleAddCountry(e: CountryInterface): void
 }
 
 const initialState = {
@@ -67,7 +74,13 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
   handleSaveChanges = (e: React.SyntheticEvent<HTMLElement>): void => {
     e.preventDefault();
     if (this.state.name !== '') {
-      this.props.handleAddCountry(this.state);
+      this.props.handleAddCountry({
+        name: this.state.name.substr(2), // option value is combination of code (first 2 characters) and name. I could use Array.find() instead but it would be slower
+        code: this.state.name.substr(0, 2),
+        goldMedals: this.state.goldMedals,
+        silverMedals: this.state.silverMedals,
+        bronzeMedals: this.state.bronzeMedals
+      });
       this.reset();
     } else {
       this.setState({ nameError: true });
@@ -99,8 +112,8 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Modal
                 <div className="col--75">
                   <select id="select-name" value={name} onChange={this.handleNameChanged}>
                     <option value="" disabled>Select country</option>
-                    {availableCountries.map((country, i) =>
-                      <option value={country} key={country}>{country}</option>
+                    {availableCountries.map((availableCountry, i) =>
+                      <option value={availableCountry.code + availableCountry.name} key={availableCountry.code}>{availableCountry.name}</option>
                     )}
                   </select>
                   <div className={"error" + (nameError ? '' : ' hidden')}>Name can't be empty</div>

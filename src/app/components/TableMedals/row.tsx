@@ -8,12 +8,12 @@ interface TableMedalsRowProps {
 
 function TableMedalsRow(props: TableMedalsRowProps) {
   const { id, country } = props;
-  const { name, goldMedals, silverMedals, bronzeMedals } = country;
+  const { name, code, goldMedals, silverMedals, bronzeMedals } = country;
   const totalMedals = goldMedals + silverMedals + bronzeMedals;
   return (
     <tr>
       <td>{id}</td>
-      <td>{name}</td>
+      <td><span className={"flag flag__" + code}></span>{name}</td>
       <td>{goldMedals}</td>
       <td>{silverMedals}</td>
       <td>{bronzeMedals}</td>
