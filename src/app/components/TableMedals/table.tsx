@@ -1,9 +1,9 @@
 import React from 'react';
 import TableMedalsRow from './row';
+import { CountriesInterface } from './../../interfaces/countries';
 
-export interface TableMedalsProps { }
-
-function TableMedals(props: TableMedalsProps) {
+function TableMedals(props: CountriesInterface) {
+  const { countries } = props;
   return (
     <table className="table-medals">
       <thead>
@@ -17,7 +17,13 @@ function TableMedals(props: TableMedalsProps) {
         </tr>
       </thead>
       <tbody>
-        <TableMedalsRow />
+        {countries.map((country, i) =>
+          <TableMedalsRow
+            country={country}
+            id={i + 1}
+            key={i} // @todo: change to country.name after adding validation that country name is unique
+          />
+        )}
       </tbody>
     </table>
   )

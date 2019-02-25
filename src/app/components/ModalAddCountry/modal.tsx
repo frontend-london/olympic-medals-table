@@ -9,7 +9,7 @@ export interface ModalAddCountryProps {
 }
 
 const initialState = {
-  country: '',
+  name: '',
   goldMedals: 0,
   silverMedals: 0,
   bronzeMedals: 0
@@ -25,24 +25,24 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
     this.setState(initialState);
   }
 
-  handleCountryChanged = (e: React.FormEvent<HTMLInputElement>): void => {
+  handleNameChanged = (e: React.FormEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    this.setState({ country: e.currentTarget.value });
+    this.setState({ name: e.currentTarget.value });
   }
 
   handleGoldMedalChanged = (e: React.FormEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    this.setState({ goldMedals: parseInt(e.currentTarget.value) });
+    this.setState({ goldMedals: parseInt(e.currentTarget.value) || 0 });
   }
 
   handleSilverMedalChanged = (e: React.FormEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    this.setState({ silverMedals: parseInt(e.currentTarget.value) });
+    this.setState({ silverMedals: parseInt(e.currentTarget.value) || 0 });
   }
 
   handleBronzeMedalChanged = (e: React.FormEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    this.setState({ bronzeMedals: parseInt(e.currentTarget.value) });
+    this.setState({ bronzeMedals: parseInt(e.currentTarget.value) || 0 });
   }
 
   handleSaveChanges = (e: React.MouseEvent<HTMLElement>): void => {
@@ -53,7 +53,7 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
 
   public render() {
     const { open, handleModalClose, handleAddCountry } = this.props;
-    const { country, goldMedals, silverMedals, bronzeMedals } = this.state;
+    const { name, goldMedals, silverMedals, bronzeMedals } = this.state;
 
     return (
       <div className={"modal modal-add-country" + (open ? ' open' : '')}>
@@ -65,10 +65,10 @@ export class ModalAddCountry extends React.Component<ModalAddCountryProps, Count
           <div className="modal__body">
             <div className="row">
               <div className="modal-add-country__col-label">
-                <label htmlFor="input-country">Country:</label>
+                <label htmlFor="input-name">Country:</label>
               </div>
               <div className="col--75">
-                <input type="text" className="form-control" id="input-country" value={country} onChange={this.handleCountryChanged} />
+                <input type="text" className="form-control" id="input-name" value={name} onChange={this.handleNameChanged} />
               </div>
             </div>
             <div className="row">

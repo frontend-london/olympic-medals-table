@@ -1,16 +1,24 @@
 import React from 'react';
 
-export interface TableMedalsRowProps { }
+import { CountryInterface } from './../../interfaces/country';
+
+export interface TableMedalsRowProps {
+  id: number,
+  country: CountryInterface
+}
 
 function TableMedalsRow(props: TableMedalsRowProps) {
+  const { id, country } = props;
+  const { name, goldMedals, silverMedals, bronzeMedals } = country;
+  const totalMedals = goldMedals + silverMedals + bronzeMedals;
   return (
     <tr>
-      <td>1</td>
-      <td>Norway</td>
-      <td>14</td>
-      <td>14</td>
-      <td>11</td>
-      <td>39</td>
+      <td>{id}</td>
+      <td>{name}</td>
+      <td>{goldMedals}</td>
+      <td>{silverMedals}</td>
+      <td>{bronzeMedals}</td>
+      <td>{totalMedals}</td>
     </tr>
   )
 }

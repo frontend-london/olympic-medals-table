@@ -1,13 +1,12 @@
 import * as React from 'react';
 import TableMedals from './components/TableMedals/table';
 import { CountryInterface } from './interfaces/country';
+import { CountriesInterface } from './interfaces/countries';
 import { ModalAddCountry } from './components/ModalAddCountry/modal';
 
 export interface AppProps { }
-export interface AppState {
-    modalOpen: boolean,
-    countries: Array<CountryInterface>
-}
+
+export interface AppState extends CountriesInterface { modalOpen: boolean }
 
 const initialState = {
     modalOpen: false,
@@ -34,16 +33,16 @@ export class App extends React.Component<AppProps, AppState> {
         this.setState({
             modalOpen: false,
             countries: [...this.state.countries, country]
-        }, () => console.log(this.state));
+        }, () => console.log('state', this.state));
     }
 
     public render() {
-        const { modalOpen } = this.state;
+        const { modalOpen, countries } = this.state;
         return (
             <div className="container">
                 <h1 className="text-center">Olympic Medals Table</h1>
                 <button className="button-add-country" onClick={this.handleModalOpen}>Add a country +</button>
-                <TableMedals />
+                <TableMedals countries={countries} />
                 <ModalAddCountry
                     open={modalOpen}
                     handleModalClose={this.handleModalClose}

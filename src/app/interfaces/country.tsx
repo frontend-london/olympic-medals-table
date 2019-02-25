@@ -1,5 +1,5 @@
 export interface CountryInterface {
-  country: string,
+  name: string,
   goldMedals: number,
   silverMedals: number,
   bronzeMedals: number
