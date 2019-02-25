@@ -1,12 +1,11 @@
 import * as React from 'react';
 import TableMedals from './components/TableMedals/table';
-import ModalAddCountry from './components/ModalAddCountry/modal';
+import { ModalAddCountry, ModalAddCountryState } from './components/ModalAddCountry/modal';
 
 export interface AppProps { }
 export interface AppState {
     modalOpen: boolean
 }
-
 
 export class App extends React.Component<AppProps, AppState> {
     constructor(props: AppProps) {
@@ -24,8 +23,8 @@ export class App extends React.Component<AppProps, AppState> {
         this.setState({ modalOpen: false });
     }
 
-    handleAddCountry = (e: React.MouseEvent<HTMLElement>): void => {
-        e.preventDefault();
+    handleAddCountry = (props: ModalAddCountryState): void => {
+        // debugger;
         this.setState({ modalOpen: false });
     }
 
