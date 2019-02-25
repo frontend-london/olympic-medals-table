@@ -26,11 +26,22 @@
     @extend .button;
     background-color: $white-gainsboro;
     color: $grey-cinder;
-    border-color: $blue-solitude;
+    border-color: $grey-squeeze;
 
     &:hover {
       background-color: $blue-solitude2;
       border-color: $blue-solitude3;
+    }
+  }
+
+  &--red {
+    @extend .button;
+    background-color: $red-cinnabar;
+    border-color: $red-cinnabar;
+
+    &:hover {
+      background-color: $red;
+      border-color: $red;
     }
   }
 }

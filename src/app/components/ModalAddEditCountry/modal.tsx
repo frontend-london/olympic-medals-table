@@ -16,8 +16,9 @@ interface ModalAddEditCountryProps extends AvailableCountriesInterface {
   open: boolean,
   editedCountry: CountryInterface | null,
   handleModalClose(): void,
-  handleSaveNewCountry(e: CountryInterface): void,
-  handleSaveEditedCountry(e: CountryInterface): void
+  handleSaveNewCountry(country: CountryInterface): void,
+  handleSaveEditedCountry(editedCountry: CountryInterface): void,
+  handleRemoveCountry(removeCountry: CountryInterface): void
 }
 
 const initialState = {
@@ -111,6 +112,16 @@ export class ModalAddEditCountry extends React.Component<ModalAddEditCountryProp
     }
   }
 
+  handleRemoveCountry = (e: React.SyntheticEvent<HTMLElement>): void => {
+    e.preventDefault();
+    if (this.props.editedCountry) {
+      this.props.handleRemoveCountry(
+        this.props.editedCountry
+      );
+    }
+    this.reset();
+  }
+
   handleModalClose = (): void => {
     this.props.handleModalClose();
     this.reset();
@@ -172,6 +183,9 @@ export class ModalAddEditCountry extends React.Component<ModalAddEditCountryProp
             </div>
             <div className="modal__footer">
               <button type="button" className="button--gray" onClick={this.handleModalClose}>Close</button>
+              {editedCountry && (
+                <button type="button" className="button--red" onClick={this.handleRemoveCountry}>Remove Country</button>
+              )}
               <button type="submit" className="button" onClick={this.handleSaveChanges}>Save changes</button>
             </div>
           </form>

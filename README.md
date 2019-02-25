@@ -38,6 +38,7 @@ I tried to use all the best techniques of writing code in this project. Although
 14. Added list of countries to modal window
 15. Added flags of countries to table
 16. Added editing country medals functionality
+17. Added remove country functionality
 
 ### Roadmap
 1. All React components meeting the requirements.

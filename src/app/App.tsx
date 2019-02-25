@@ -3,6 +3,7 @@ import * as api from './api/index';
 import TableMedals from './components/TableMedals/table';
 import { CountryInterface } from './interfaces/country';
 import { CountriesInterface } from './interfaces/countries';
+import { AvailableCountryInterface } from './interfaces/availableCountry';
 import { AvailableCountriesInterface } from './interfaces/availableCountries';
 import { ModalAddEditCountry } from './components/ModalAddEditCountry/modal';
 
@@ -62,7 +63,7 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     handleSaveNewCountry = (country: CountryInterface): void => {
-        let availableCountries = this.state.availableCountries;
+        let availableCountries = [...this.state.availableCountries];
         let countries = [...this.state.countries, country];
         availableCountries = availableCountries.filter((availableCountry, index, arr) => {
             return availableCountry.name !== country.name;
@@ -70,21 +71,23 @@ export class App extends React.Component<AppProps, AppState> {
         countries.sort(countriesSort);
         this.setState({
             availableCountries,
-            modalOpen: false,
-            countries: countries
+            countries: countries,
+            editedCountry: null,
+            modalOpen: false
         });
     }
 
     handleSaveEditedCountry = (editedCountry: CountryInterface): void => {
-        let editedIndex = this.state.countries.findIndex((country, index) => {
+        const editedIndex = this.state.countries.findIndex((country, index) => {
             return country.code == editedCountry.code;
         });
         let countries = [...this.state.countries];
         countries[editedIndex] = editedCountry;
         countries.sort(countriesSort);
         this.setState({
-            modalOpen: false,
-            countries: countries
+            countries: countries,
+            editedCountry: null,
+            modalOpen: false
         });
     }
 
@@ -92,6 +95,26 @@ export class App extends React.Component<AppProps, AppState> {
         this.setState({
             editedCountry,
             modalOpen: true,
+        });
+    }
+
+    handleRemoveCountry = (removeCountry: CountryInterface): void => {
+        let availableCountries = [...this.state.availableCountries, {
+            code: removeCountry.code,
+            name: removeCountry.name
+        }];
+        availableCountries.sort((a, b) => {
+            return ('' + a.name).localeCompare(b.name);
+        });
+        const countryIndex = this.state.countries.findIndex((country, index) => {
+            return removeCountry.code == country.code;
+        });
+        const countries = [...this.state.countries.slice(0, countryIndex), ...this.state.countries.slice(countryIndex + 1)];
+        this.setState({
+            availableCountries,
+            countries: countries,
+            editedCountry: null,
+            modalOpen: false,
         });
     }
 
@@ -111,6 +134,7 @@ export class App extends React.Component<AppProps, AppState> {
                     handleModalClose={this.handleModalClose}
                     handleSaveNewCountry={this.handleSaveNewCountry}
                     handleSaveEditedCountry={this.handleSaveEditedCountry}
+                    handleRemoveCountry={this.handleRemoveCountry}
                     editedCountry={editedCountry}
                 />
             </div>
