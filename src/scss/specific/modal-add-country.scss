@@ -1,3 +1,6 @@
+@import "./../general/grid-system";
+@import "./../general/modal";
+
 .modal-add-country {
   &__label-mobile {
     @media (max-width: 600px) {

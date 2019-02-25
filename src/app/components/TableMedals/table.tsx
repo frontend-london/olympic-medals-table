@@ -1,6 +1,7 @@
 import React from 'react';
 import TableMedalsRow from './row';
 import { CountriesInterface } from './../../interfaces/countries';
+import './../../../scss/components/table-medals.scss';
 
 function TableMedals(props: CountriesInterface) {
   const { countries } = props;

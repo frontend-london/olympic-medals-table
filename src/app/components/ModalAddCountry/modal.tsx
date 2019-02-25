@@ -1,6 +1,7 @@
 import React from 'react';
 import { CountryInterface } from './../../interfaces/country';
 import { AvailableCountriesInterface } from './../../interfaces/availableCountries';
+import './../../../scss/components/modal-add-country.scss';
 
 interface ModalAddCountryState {
   name: string,
