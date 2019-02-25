@@ -31,6 +31,11 @@ function TableMedals(props: TableMedalsProps) {
             handleEditCountry={handleEditCountry}
           />
         )}
+        {!countries.length &&
+          <tr>
+            <td className="table-medals__no-country" colSpan={6}>No countries added</td>
+          </tr>
+        }
       </tbody>
     </table>
   )

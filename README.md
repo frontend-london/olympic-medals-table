@@ -35,26 +35,18 @@ I tried to use all the best techniques of writing code in this project. Although
 11. I've added ESC and ENTER handlers to the modal
 12. Table is showing countries
 13. Added sorting to table: by Gold first, Silver next and Bronze thereafter;
-14. Added list of countries to modal window
-15. Added flags of countries to table
-16. Added editing country medals functionality
-17. Added remove country functionality
+14. Added list of countries to modal window. Country that has already been used is removed from the list.
+15. Added flags of countries to table.
+16. Added editing country medals functionality.
+17. Added remove country functionality. Removed country is back again on available countries list.
+18. Added message when there is no countries in the table.
 
 ### Roadmap
-1. All React components meeting the requirements.
-2. I'll add Redux to use instead of React State.
-3. Write tests using Enzyme (and jest)
-
-Modal window functionality to be added:
-   * Ability to add country medals using modal window
-   * Select with list of countries instead of input
-   * Validating data in the modal window before it's added (country name required)
-
-Table functionality to be added:
-  * Dynamic list of countries
-  * Sorting
-  * Country flags
-  * Ability to edit/remove country
+In the moment of creating Pull Request, project is already meeting all of the requirements.
+It's available online at http://enside.pl/olympic-medals-table/
+Still, soon I'll add extra functionalities:
+1. Redux to use instead of React State.
+2. Tests using Enzyme (and jest)
 
 ### Problems
-1. Missing componentWillUnmount() with document.removeEventListener("keyup", this.escFunction, false) in src\app\components\ModalAddCountry\modal.tsx . The reason of it is that typescript type check was returning error to both KeyboardEvent and EventListenerOrEventListenerObject . This can help to fix this error: https://stackoverflow.com/questions/47166369/argument-of-type-e-customevent-void-is-not-assignable-to-parameter-of-ty?rq=1
+1. Missing componentWillUnmount() with document.removeEventListener("keyup", this.escFunction, false) in src\app\components\ModalAddCountry\modal.tsx . The reason of it, is that typescript type check was returning error to both KeyboardEvent and EventListenerOrEventListenerObject. This can help to fix this error: https://stackoverflow.com/questions/47166369/argument-of-type-e-customevent-void-is-not-assignable-to-parameter-of-ty?rq=1

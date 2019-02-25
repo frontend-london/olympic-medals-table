@@ -9,6 +9,7 @@
   &__country { width: auto; text-align: left; }
   &__gold, &__silver, &__bronze { width: 40px; }
   &__total { width: 60px; }
+  &__no-country { text-align: center; padding: 20px 0; cursor: auto;}
 
   thead tr th {
     border: solid $white-gainsboro2;
