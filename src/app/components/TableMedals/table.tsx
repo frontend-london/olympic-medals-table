@@ -21,7 +21,7 @@ function TableMedals(props: CountriesInterface) {
           <TableMedalsRow
             country={country}
             id={i + 1}
-            key={i} // @todo: change to country.name after adding validation that country name is unique
+            key={country.name}
           />
         )}
       </tbody>

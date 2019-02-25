@@ -45,7 +45,13 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     handleAddCountry = (country: CountryInterface): void => {
+        let availableCountries = this.state.availableCountries;
         let countries = [...this.state.countries, country];
+
+        availableCountries = availableCountries.filter((value, index, arr) => {
+            return value !== country.name;
+        });
+
         countries.sort((a, b) => {
             if (b.goldMedals !== a.goldMedals) {
                 return b.goldMedals - a.goldMedals;
@@ -56,9 +62,10 @@ export class App extends React.Component<AppProps, AppState> {
             }
         });
         this.setState({
+            availableCountries,
             modalOpen: false,
             countries: countries
-        }, () => console.log('state', this.state));
+        });
     }
 
     public render() {
