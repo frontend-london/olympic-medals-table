@@ -1,16 +1,23 @@
 import * as React from 'react';
 import TableMedals from './components/TableMedals/table';
-import { ModalAddCountry, ModalAddCountryState } from './components/ModalAddCountry/modal';
+import { CountryInterface } from './interfaces/country';
+import { ModalAddCountry } from './components/ModalAddCountry/modal';
 
 export interface AppProps { }
 export interface AppState {
-    modalOpen: boolean
+    modalOpen: boolean,
+    countries: Array<CountryInterface>
 }
+
+const initialState = {
+    modalOpen: false,
+    countries: []
+};
 
 export class App extends React.Component<AppProps, AppState> {
     constructor(props: AppProps) {
         super(props);
-        this.state = { modalOpen: false };
+        this.state = initialState;
     }
 
     handleModalOpen = (e: React.MouseEvent<HTMLElement>): void => {
@@ -23,9 +30,11 @@ export class App extends React.Component<AppProps, AppState> {
         this.setState({ modalOpen: false });
     }
 
-    handleAddCountry = (props: ModalAddCountryState): void => {
-        // debugger;
-        this.setState({ modalOpen: false });
+    handleAddCountry = (country: CountryInterface): void => {
+        this.setState({
+            modalOpen: false,
+            countries: [...this.state.countries, country]
+        }, () => console.log(this.state));
     }
 
     public render() {

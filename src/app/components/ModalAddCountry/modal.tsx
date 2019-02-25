@@ -1,16 +1,11 @@
 import React from 'react';
 
-export interface ModalAddCountryState {
-  country: string,
-  goldMedals: number,
-  silverMedals: number,
-  bronzeMedals: number
-}
+import { CountryInterface } from './../../interfaces/country';
 
 export interface ModalAddCountryProps {
   open: boolean,
   handleModalClose(e: React.MouseEvent<HTMLElement>): void,
-  handleAddCountry(e: ModalAddCountryState): void
+  handleAddCountry(e: CountryInterface): void
 }
 
 const initialState = {
@@ -20,7 +15,7 @@ const initialState = {
   bronzeMedals: 0
 };
 
-export class ModalAddCountry extends React.Component<ModalAddCountryProps, ModalAddCountryState> {
+export class ModalAddCountry extends React.Component<ModalAddCountryProps, CountryInterface> {
   constructor(props: ModalAddCountryProps) {
     super(props);
     this.state = initialState;
