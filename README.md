@@ -1,54 +1,50 @@
 ## Programming Task
 
-In order to be considered for the developer position, you must complete the following task.
+This app presents an Olympic Medals Table.
 
-*Note: This task should take 2 - 3 hours at the most. However, you have up to 24hrs after you fork the repo to submit your work.*
-
-### Preparation
-
-Before starting this task, we recommend that you have:
-
-- Your favourite computer and development tools / IDE to hand;
-- A few hours of un-distracted time ahead of you;
-- Access to the internet;
-- A mug of hot coffee (or tea, if you prefer!).
-
-### In this task, you may use:
-
-- Any combination of technologies, frameworks and techniques you like;
-- The internet, including Google, Stackoverflow etc to help with the task;
-- Any type of data store.
-
-You may also ask us any general questions you might have about the task.
-
-## The Task
-
-1. Fork this repository on Github (if you don't know what that means or how to do it, Google is your friend);
-2. Create a *src* folder to contain your code;
-3. In the *src* directory, create a simple app to allow a basic Olympic Medals Table to be displayed in a browser or on a device;
-4. The app should allow:
+The app should allow:
  - Countries to be added to a table, along with the TOTAL number of medals the country won during the last Olympic Games; and
  - Rows to be sorted in descending order of medals won, either automatically or manually by the user.
-5. Commit and Push your code to your new repository;
-6. Send us a pull request;
-7. Your code will be reviewed by one of our senior technical team and we will get back to you.
-
-If you wish to supply instructions on how to run or understand the construction of your app, then please provide those in a new README.md file within a docs folder.
-
-If you can provide a link to view or download a demo of your app to go along with your code, then all the better.
-
-#### *Feel free to use any combination of technologies, frameworks and techniques you prefer.*
-
-### For bonus points:
-
-If you find the task above easy, then feel free to improve your app. Here are some ideas:
-
-- Add counts for each type of medal (Gold, Silver, Bronze) and make the countries order by Gold first, Silver next and Bronze thereafter;
+ - Add counts for each type of medal (Gold, Silver, Bronze) and make the countries order by Gold first, Silver next and Bronze thereafter;
 - Add country flag icons/images to the country names;
 - Allow editing and/or deleting of countries from the list.
 
-### Any questions?
+### Running the project
 
-Please just ask.
+1. type npm install to install all the dependencies
+2. once it's complete type npm start to run project in your browser
+3. if you want to deploy the code type npm run build and copy a content of a folder dist/ to your server
 
-Good luck and thanks for taking the time to complete this task!
+### Used solutions
+
+I tried to use all the best techniques of writing code in this project. Although it was said to complete it within 2-3 hours I decided to spend more time on it to make sure that it's good quality. Here is list of the features I've used in this project:
+
+1. I started with installing React with Webpack from scratch instead of using create-react-app script to have more control over the code and install only those dependencies that I'm going to use
+2. I've added TypeScript to prove my knowledge of this library and use benefits of this library (type control, checking errors while coding)
+3. I've added Sass-Loader to write proper and well-structured Sass code using BEM methodology
+4. I've added file-loader library to dependencies to allow using images in the project (I needed it for medals image)
+5. I've created basic styled static version of table and modal. I could use front-end framework such as Bootstrap to speed up the process of styling but instead of it I decided to write it from scratch to reduce the size of it to only used components and prove my knowledge of writing well-structured Sass code
+6. I've added CSS Image Sprites for medals to speed up loading of the images
+7. I've used extension technique in Sass to reduce need of duplicating class name and modifier - for example I'm using class="medal--gold" instead of "medal medal--gold" (more info: https://webuniverse.io/css-organization-naming-conventions-and-safe-extend-without-preprocessors/#To_extend_or_not_to_extend?)
+8. I've added WAI-ARIA standard for accessibility (for example aria-label attribute in medals images)
+9. I've structured my Sass files in the following way:
+   * general folder contains components that can be used multiple times in the project such as button or modal. It also contains file common.scss which has basic styling of the page, reses.scss which is simple CSS Reset, simple grid system in grid-system.scss, list of used colors in colors.scss (I've generated them using https://www.color-blindness.com/color-name-hue/ and sorted alphabetically) and list other varibles used in the project in variables.scss (such as breakpoints - the same as in Bootstrap).
+   * specific folder contains components that are not going to be used multiple times in the project such as .button-add-country
+   * components folder represents structure of React Components but no styling inside - instead of it it's importing them from general/ and specific/ folders
+10. After completing styling part I've started working on a React components. First of all I've added functionality to open and close modal window which allows adding new country to the table.
+
+### Roadmap
+1. First of all I'm going to write React components meeting the requirements.
+2. I'll add Redux to use instead of React State.
+3. Write tests using Enzyme (and jest)
+
+Modal window functionality to be added:
+   * Ability to add country medals using modal window
+   * Select with list of countries instead of input
+   * Validating data in the modal window before it's added (country name required)
+
+Table functionality to be added:
+  * Dynamic list of countries
+  * Sorting
+  * Country flags
+  * Ability to edit/remove country
