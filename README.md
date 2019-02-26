@@ -40,6 +40,7 @@ I tried to use all the best techniques of writing code in this project. Although
 16. Added editing country medals functionality.
 17. Added remove country functionality. Removed country is back again on available countries list.
 18. Added message when there is no countries in the table.
+19. Added favicon
 
 ### Roadmap
 In the moment of creating Pull Request, project is already meeting all of the requirements.

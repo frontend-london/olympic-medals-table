@@ -48,6 +48,9 @@ const config: Configuration = {
         new CopyPlugin([
             { from: 'src/data', to: 'data' },
         ]),
+        new CopyPlugin([
+            { from: 'src/images/favicon.ico', to: 'favicon.ico', toType: 'file' },
+        ]),
     ]
 }
 
